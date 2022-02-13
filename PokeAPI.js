@@ -26,6 +26,7 @@ function addtoDex(pokeArray){
   }
 }
 
+
 //Generate 2 random Pokemon
 function generatePokemon(){
 	for(i = 0; i < 2; i++){
@@ -35,23 +36,46 @@ function generatePokemon(){
   
 }
 
+//writes pokemon to page
 function writeToDoc(choice){
 console.log(choice);
 const pokehtml =
         		`<div class="card" id="${choice[0]}">
         			<div><img class="pokeimage" src="${choice[2]}">
             		<div class="pokedata">
-        					<h5 class="pokeid">${choice[1]}:  </h5>
-            			<h2 class="pokename">${choice[0].toUpperCase()}</h2>
+        					<h6 class="pokeid">${choice[1]}: </h6>
+            			<h1 class="pokename">${choice[0].toUpperCase()}</h1>
             		</div>
-                <hr>
-                <br>
-                <b>Pokemon</b>
+                <b><hr></b>
+                <div class="attackBox">
+                <div>
+                	<input type="button" value="move">
+                  <b>Flavour Text</b>
+                 </div>
+                 <div>
+                	<input type="button" value="move">
+                  <b>Flavour Text</b>
+                 </div>
+                 <div>
+                	<input type="button" value="move">
+                 	<b>Flavour Text</b>
+                 </div>
+                 <div>
+                	<input type="button" value="move">
+                  <b>Flavour Text</b>
+                 </div>
+                </div> 
         			 </div>
+               
              </div>`
         dex.innerHTML += pokehtml;
 }
 
 
+//Create New Pokemon
+function newPokemon(){
+	dex.innerHTML = "<b>";
+  addtoDex();
+}
 
 pokemonGenerate()
