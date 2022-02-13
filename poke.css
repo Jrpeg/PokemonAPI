@@ -3,24 +3,36 @@
    display: flex inline;
    border: 4px solid SaddleBrown;
    border-radius: 20px 20px 5px 5px;
-   width: 300px;
+   width: 320px;
    height: 450px;
-   margin: 15px;
-   padding-top: 30px; 
+   margin: 25px;
+   padding-top: 30px;
    justify-content: space-evenly;
+   box-shadow: 5px 10px 15px black;
 }
 
 .pokeimage{
   background-color: PowderBlue;
   height: 150px;
-  width: 190px;
+  width: 200px;
   border: 2px solid DarkGoldenRod;
   border-radius: 20px 20px 5px 5px;
 }
 
-.pokedata{
-  margin-top: 0px;
-  display: flex;
+.pokedata, .pokeid{
+  margin: 0px;
+  display: center;
   padding: 0px;
+  font-family: "Lucida Console", "Courier New", monospace;
 }
-   
+
+.pokename{
+  margin: 0px;
+  display: center;
+  text-align: center;
+}
+
+.attackBox{
+  display: grid;
+  justify-content: space-evenly;
+}
