@@ -5,51 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon Card Generator</title>
     <style>
-        .card{
-           background-color: Bisque;
-           display: flex inline;
-           border: 4px solid SaddleBrown;
-           border-radius: 20px 20px 5px 5px;
-           width: 320px;
-           height: 450px;
-           margin: 25px;
-           padding-top: 30px;
-           justify-content: space-evenly;
-           box-shadow: 5px 10px 15px black;
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
         }
 
-        .pokeimage{
-          background-color: PowderBlue;
-          height: 150px;
-          width: 200px;
-          border: 2px solid DarkGoldenRod;
-          border-radius: 20px 20px 5px 5px;
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .pokedata, .pokeid{
-          margin: 0px;
-          display: center;
-          padding: 0px;
-          font-family: "Lucida Console", "Courier New", monospace;
+        .new-pokemon-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .pokename{
-          margin: 0px;
-          display: center;
-          text-align: center;
+        .new-pokemon-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
         }
 
-        .attackBox{
-          display: grid;
-          justify-content: space-evenly;
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            width: 300px;
+            height: 420px;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            transition: all 0.3s ease;
+            border: 3px solid #e0e0e0;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500, #4ecdc4, #45b7d1, #96ceb4);
+            border-radius: 17px 17px 0 0;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .pokename {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+            text-transform: capitalize;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .pokeid {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .image-container {
+            background: radial-gradient(circle, #ffeaa7, #fdcb6e);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .pokeimage {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            filter: drop-shadow(3px 3px 10px rgba(0, 0, 0, 0.2));
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover .pokeimage {
+            transform: scale(1.1);
+        }
+
+        .stats-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .stats-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .attackBox {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .move-slot {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(116, 185, 255, 0.3);
+        }
+
+        .move-slot:hover {
+            background: linear-gradient(45deg, #0984e3, #74b9ff);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(116, 185, 255, 0.4);
+        }
+
+        .type-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        #pokecard {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
     </style>
 </head>
-<body style="background-color:gray;">
-    <input type="button" value="New Pokemon!" onclick="newPokemon()">
+  <body>
+    <div class="controls">
+        <button class="new-pokemon-btn" onclick="newPokemon()">✨ New Pokemon! ✨</button>
+    </div>
 
-    <ol id="pokecard">
-    </ol>
+    <div class="card-container" id="pokecard">
+    </div>
 
     <script>
         const dex = document.getElementById('pokecard');
@@ -92,34 +252,31 @@
         //writes pokemon to page
         function writeToDoc(choice){
         console.log(choice);
+        const moves = ['Tackle', 'Quick Attack', 'Thunder Shock', 'Flamethrower', 'Water Gun', 'Vine Whip', 'Psychic', 'Ice Beam', 'Rock Slide', 'Gust'];
+        const randomMoves = [];
+        for(let i = 0; i < 4; i++) {
+            randomMoves.push(moves[Math.floor(Math.random() * moves.length)]);
+        }
+        
         const pokehtml =
                 		`<div class="card" id="${choice[0]}">
-                			<div><img class="pokeimage" src="${choice[2]}">
-                    		<div class="pokedata">
-                					<h6 class="pokeid">${choice[1]}: </h6>
-                    			<h1 class="pokename">${choice[0].toUpperCase()}</h1>
-                    		</div>
-                        <b><hr></b>
-                        <div class="attackBox">
-                        <div>
-                        	<input type="button" value="move">
-                          <b>Flavour Text</b>
-                         </div>
-                         <div>
-                        	<input type="button" value="move">
-                          <b>Flavour Text</b>
-                         </div>
-                         <div>
-                        	<input type="button" value="move">
-                         	<b>Flavour Text</b>
-                         </div>
-                         <div>
-                        	<input type="button" value="move">
-                          <b>Flavour Text</b>
-                         </div>
-                        </div> 
-                			 </div>
-                       
+                		    <div class="type-badge">Pokemon</div>
+                		    <div class="card-header">
+                		        <h1 class="pokename">${choice[0]}</h1>
+                		        <span class="pokeid">#${choice[1].toString().padStart(3, '0')}</span>
+                		    </div>
+                		    <div class="image-container">
+                		        <img class="pokeimage" src="${choice[2]}" alt="${choice[0]}">
+                		    </div>
+                		    <div class="stats-section">
+                		        <div class="stats-title">Moves</div>
+                		        <div class="attackBox">
+                		            <button class="move-slot">${randomMoves[0]}</button>
+                		            <button class="move-slot">${randomMoves[1]}</button>
+                		            <button class="move-slot">${randomMoves[2]}</button>
+                		            <button class="move-slot">${randomMoves[3]}</button>
+                		        </div>
+                		    </div>
                      </div>`
                 dex.innerHTML += pokehtml;
         }
